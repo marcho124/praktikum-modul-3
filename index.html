@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Praktikum Sistem Multimedia - HTML5 Multimedia & API</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; padding: 20px; color: #333;
+        }
+        .container {
+            max-width: 1000px; margin: 0 auto; background: #fff;
+            border-radius: 15px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff; padding: 30px; text-align: center;
+        }
+        header h1 { font-size: 28px; margin-bottom: 8px; }
+        header p { font-size: 14px; opacity: 0.9; }
+        .section { padding: 25px 30px; border-bottom: 1px solid #e0e0e0; }
+        .section:last-child { border-bottom: none; }
+        .section h2 {
+            color: #1e3c72; font-size: 22px; margin-bottom: 15px;
+            padding-bottom: 10px; border-bottom: 3px solid #667eea;
+            display: inline-block;
+        }
+        .section p { line-height: 1.7; margin-bottom: 10px; color: #555; }
+        .media-box {
+            background: #f8f9fa; border-radius: 10px; padding: 20px;
+            margin: 15px 0; border-left: 5px solid #667eea;
+        }
+        video, audio {
+            border-radius: 8px; max-width: 100%; display: block; margin: 0 auto;
+        }
+        .video-wrapper { text-align: center; }
+        .btn-group { text-align: center; margin: 15px 0; }
+        .btn {
+            background: #667eea; color: #fff; border: none;
+            padding: 10px 20px; margin: 5px; border-radius: 25px;
+            cursor: pointer; font-size: 14px; transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #1e3c72; transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        iframe {
+            border-radius: 10px; display: block; margin: 0 auto;
+            max-width: 100%; box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        #demo {
+            background: #f0f4ff; padding: 15px; border-radius: 8px;
+            margin-top: 15px; font-family: 'Courier New', monospace;
+            color: #1e3c72; font-weight: bold; min-height: 50px;
+        }
+        .drag-container {
+            display: flex; justify-content: center; gap: 30px;
+            flex-wrap: wrap; margin: 20px 0;
+        }
+        .drag-box {
+            width: 150px; height: 120px; border: 3px dashed #667eea;
+            border-radius: 10px; display: flex; align-items: center;
+            justify-content: center; background: #f8f9fa; transition: all 0.3s;
+        }
+        .drag-box:hover { background: #e8eeff; border-color: #1e3c72; }
+        .drag-item {
+            width: 100px; height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff; border-radius: 8px; display: flex;
+            align-items: center; justify-content: center;
+            font-weight: bold; cursor: grab; user-select: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .drag-item:active { cursor: grabbing; }
+        .info-table {
+            width: 100%; border-collapse: collapse;
+            margin: 15px 0; font-size: 14px;
+        }
+        .info-table th, .info-table td {
+            border: 1px solid #ddd; padding: 10px; text-align: left;
+        }
+        .info-table th { background: #1e3c72; color: #fff; }
+        .info-table tr:nth-child(even) { background: #f8f9fa; }
+        footer {
+            background: #1e3c72; color: #fff; text-align: center;
+            padding: 20px; font-size: 13px;
+        }
+        .badge {
+            display: inline-block; background: #667eea; color: #fff;
+            padding: 3px 10px; border-radius: 12px;
+            font-size: 11px; margin-left: 8px;
+        }
+        .yt-options {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            justify-content: center; margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- HEADER -->
+    <header>
+        <h1>🎬 Tugas Praktikum Sistem Multimedia</h1>
+        <p>Implementasi HTML5 Multimedia & API — Audio, Video, YouTube, Geolocation, Drag & Drop</p>
+    </header>
+
+    <!-- ==================== BAGIAN 1: AUDIO ==================== -->
+    <div class="section">
+        <h2>1. HTML5 Audio <span class="badge">MP3 / OGG / WAV</span></h2>
+        <p>
+            Elemen <code>&lt;audio&gt;</code> digunakan untuk memutar file audio di halaman web.
+            Atribut <code>controls</code> menambahkan kontrol pemutar seperti play, pause, dan volume.
+            Elemen <code>&lt;source&gt;</code> memungkinkan browser memilih format audio yang didukung.
+        </p>
+        <div class="media-box">
+            <audio controls>
+                <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
+                <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+                Browser Anda tidak mendukung elemen audio.
+            </audio>
+        </div>
+        <h3 style="margin: 15px 0 10px; color:#1e3c72;">Format Audio yang Didukung HTML5:</h3>
+        <table class="info-table">
+            <tr><th>Format</th><th>Media Type</th><th>Keterangan</th></tr>
+            <tr><td>MP3</td><td>audio/mpeg</td><td>Format paling populer, didukung semua browser</td></tr>
+            <tr><td>OGG</td><td>audio/ogg</td><td>Didukung Chrome, Firefox, Opera</td></tr>
+            <tr><td>WAV</td><td>audio/wav</td><td>Didukung Chrome, Firefox, Safari, Opera</td></tr>
+        </table>
+    </div>
+
+    <!-- ==================== BAGIAN 2: VIDEO ==================== -->
+    <div class="section">
+        <h2>2. HTML5 Video <span class="badge">MP4 / WebM / OGG</span></h2>
+        <p>
+            Elemen <code>&lt;video&gt;</code> digunakan untuk menampilkan video di halaman web.
+            Atribut <code>width</code> dan <code>height</code> sebaiknya selalu disertakan agar
+            halaman tidak berkedip saat video dimuat. Atribut <code>controls</code> menambahkan
+            kontrol pemutar video.
+        </p>
+        <div class="media-box video-wrapper">
+            <video id="video1" width="420" controls>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                <source src="https://www.w3schools.com/html/mov_bbb.ogg" type="video/ogg">
+                Browser Anda tidak mendukung tag video HTML5.
+            </video>
+        </div>
+        <div class="btn-group">
+            <button class="btn" onclick="playPause()">▶ Play / Pause</button>
+            <button class="btn" onclick="makeBig()">🔍 Big</button>
+            <button class="btn" onclick="makeSmall()">🔎 Small</button>
+            <button class="btn" onclick="makeNormal()">↔ Normal</button>
+        </div>
+        <h3 style="margin: 15px 0 10px; color:#1e3c72;">Format Video yang Didukung HTML5:</h3>
+        <table class="info-table">
+            <tr><th>Format</th><th>Media Type</th><th>Keterangan</th></tr>
+            <tr><td>MP4</td><td>video/mp4</td><td>Direkomendasikan YouTube, didukung semua browser</td></tr>
+            <tr><td>WebM</td><td>video/webm</td><td>Didukung Chrome, Firefox, Opera</td></tr>
+            <tr><td>Ogg</td><td>video/ogg</td><td>Didukung Chrome, Firefox, Opera</td></tr>
+        </table>
+    </div>
+
+    <!-- ==================== BAGIAN 3: YOUTUBE ==================== -->
+    <div class="section">
+        <h2>3. YouTube Video <span class="badge">IFrame Embed</span></h2>
+        <p>
+            Cara termudah untuk memutar video di HTML adalah menggunakan YouTube.
+            Kita cukup menggunakan elemen <code>&lt;iframe&gt;</code> dan mengarahkan
+            <code>src</code> ke URL embed YouTube dengan ID video yang diinginkan.
+            Metode <code>&lt;object&gt;</code> dan <code>&lt;embed&gt;</code> sudah
+            <strong>deprecated</strong> sejak Januari 2015.
+        </p>
+        <div class="media-box">
+            <iframe width="420" height="315"
+                src="https://www.youtube.com/embed/tgbNymZ7vqY"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+        <h3 style="margin: 15px 0 10px; color:#1e3c72;">Parameter YouTube yang Umum:</h3>
+        <table class="info-table">
+            <tr><th>Parameter</th><th>Value</th><th>Fungsi</th></tr>
+            <tr><td>autoplay</td><td>0 (default) / 1</td><td>Video diputar otomatis saat halaman dimuat</td></tr>
+            <tr><td>loop</td><td>0 (default) / 1</td><td>Video diputar berulang terus-menerus</td></tr>
+            <tr><td>controls</td><td>0 / 1 (default)</td><td>Menampilkan atau menyembunyikan kontrol pemutar</td></tr>
+        </table>
+        <p style="font-size:13px; color:#888;">
+            💡 Contoh URL dengan parameter:
+            <code>https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&amp;loop=1&amp;playlist=tgbNymZ7vqY</code>
+        </p>
+    </div>
+
+    <!-- ==================== BAGIAN 4: GEOLOCATION API ==================== -->
+    <div class="section">
+        <h2>4. HTML Geolocation API <span class="badge">getCurrentPosition()</span></h2>
+        <p>
+            Geolocation API digunakan untuk mendapatkan posisi geografis pengguna.
+            Karena ini menyangkut privasi, posisi hanya tersedia jika pengguna menyetujuinya.
+            Method <code>getCurrentPosition()</code> mengembalikan objek koordinat yang berisi
+            <code>latitude</code>, <code>longitude</code>, dan <code>accuracy</code>.
+        </p>
+        <div class="media-box" style="text-align:center;">
+            <button class="btn" onclick="getLocation()">📍 Dapatkan Lokasi Saya</button>
+            <p id="demo">Klik tombol di atas untuk menampilkan koordinat Anda...</p>
+        </div>
+        <h3 style="margin: 15px 0 10px; color:#1e3c72;">Properti yang Dikembalikan:</h3>
+        <table class="info-table">
+            <tr><th>Properti</th><th>Keterangan</th><th>Ketersediaan</th></tr>
+            <tr><td>coords.latitude</td><td>Garis lintang (desimal)</td><td>Selalu</td></tr>
+            <tr><td>coords.longitude</td><td>Garis bujur (desimal)</td><td>Selalu</td></tr>
+            <tr><td>coords.accuracy</td><td>Tingkat akurasi posisi (meter)</td><td>Selalu</td></tr>
+            <tr><td>coords.altitude</td><td>Ketinggian di atas permukaan laut</td><td>Jika tersedia</td></tr>
+            <tr><td>coords.speed</td><td>Kecepatan (meter/detik)</td><td>Jika tersedia</td></tr>
+            <tr><td>timestamp</td><td>Waktu respon</td><td>Jika tersedia</td></tr>
+        </table>
+    </div>
+
+    <!-- ==================== BAGIAN 5: DRAG & DROP API ==================== -->
+    <div class="section">
+        <h2>5. HTML Drag and Drop API <span class="badge">draggable="true"</span></h2>
+        <p>
+            Drag and Drop API memungkinkan elemen untuk diseret dan dijatuhkan ke area lain.
+            Untuk membuat elemen dapat diseret, atur atribut <code>draggable="true"</code>.
+            Event yang digunakan: <code>ondragstart</code>, <code>ondragover</code>, dan
+            <code>ondrop</code>. Method <code>preventDefault()</code> diperlukan agar
+            elemen dapat dijatuhkan.
+        </p>
+        <div class="drag-container">
+            <div class="drag-box" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="drag-item" id="drag1" draggable="true" ondragstart="drag(event)">
+                    SERET SAYA
+                </div>
+            </div>
+            <div class="drag-box" id="div2" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <span style="color:#999; font-size:13px;">Drop di sini</span>
+            </div>
+        </div>
+        <p style="text-align:center; font-size:13px; color:#888;">
+            💡 Seret kotak ungu dari kotak kiri ke kotak kanan!
+        </p>
+    </div>
+
+    <!-- ==================== FOOTER (SUDAH DITAMBAH NAMA & NIM) ==================== -->
+    <footer>
+        <p><strong>Nama:</strong> Marcho Aleandro Cristian Roring | <strong>NIM:</strong> 240211060072</p>
+        <hr style="border-color: rgba(255,255,255,0.3); margin: 12px auto; max-width: 300px;">
+        <p>© 2026 — Tugas Praktikum Sistem Multimedia | Teknik Informatika Semester 5</p>
+        <p style="margin-top:5px; opacity:0.8;">Dibuat dengan HTML5, CSS3, dan JavaScript</p>
+    </footer>
+</div>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+    // ============ VIDEO CONTROL ============
+    var myVideo = document.getElementById("video1");
+
+    function playPause() {
+        if (myVideo.paused) myVideo.play();
+        else myVideo.pause();
+    }
+    function makeBig()    { myVideo.width = 560; }
+    function makeSmall()  { myVideo.width = 320; }
+    function makeNormal() { myVideo.width = 420; }
+
+    // ============ GEOLOCATION API ============
+    var x = document.getElementById("demo");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            x.innerHTML = "❌ Geolocation tidak didukung oleh browser ini.";
+        }
+    }
+    function showPosition(position) {
+        x.innerHTML =
+            "✅ Latitude: " + position.coords.latitude +
+            "<br>✅ Longitude: " + position.coords.longitude +
+            "<br>📏 Accuracy: " + position.coords.accuracy + " meter";
+    }
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                x.innerHTML = "❌ Pengguna menolak permintaan Geolocation."; break;
+            case error.POSITION_UNAVAILABLE:
+                x.innerHTML = "❌ Informasi lokasi tidak tersedia."; break;
+            case error.TIMEOUT:
+                x.innerHTML = "❌ Permintaan lokasi timeout."; break;
+            default:
+                x.innerHTML = "❌ Terjadi error yang tidak diketahui.";
+        }
+    }
+
+    // ============ DRAG & DROP API ============
+    function allowDrop(ev) { ev.preventDefault(); }
+    function drag(ev)      { ev.dataTransfer.setData("text", ev.target.id); }
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+</script>
+
+</body>
+</html>
